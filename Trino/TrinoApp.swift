@@ -1,17 +1,12 @@
-//
-//  TrinoApp.swift
-//  Trino
-//
-//  Created by Alex on 1/28/26.
-//
-
 import SwiftUI
+import SwiftData
 
 @main
 struct TrinoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
+                .modelContainer(for: [TrinoTask.self, DailyLog.self, UserSettings.self, PendingSwap.self])
         }
     }
 }
