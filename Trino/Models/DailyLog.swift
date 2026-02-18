@@ -17,4 +17,8 @@ final class DailyLog {
     var completionCount: Int {
         entries.filter(\.isCompleted).count
     }
+    
+    var sortedEntries: [TaskEntry] {
+        entries.sorted { $0.slotPosition < $1.slotPosition }
+    }
 }
