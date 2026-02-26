@@ -105,6 +105,8 @@ struct SettingsView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { dismiss() } label: {
                         Image(systemName: "xmark")
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color(.secondaryLabel))
                     }
                     .glassEffect(in: .circle)
                 }
