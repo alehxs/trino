@@ -4,14 +4,16 @@ import SwiftData
 @Model
 final class TaskEntry {
     var id: UUID
-    var task: TrinoTask
+    var taskName: String
+    var taskId: UUID
     var isCompleted: Bool
     var slotPosition: Int
     var dailyLog: DailyLog?
 
-    init(task: TrinoTask, slotPosition: Int){
+    init(taskName: String, taskId: UUID, slotPosition: Int) {
         self.id = UUID()
-        self.task = task
+        self.taskName = taskName
+        self.taskId = taskId
         self.isCompleted = false
         self.slotPosition = slotPosition
     }

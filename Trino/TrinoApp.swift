@@ -3,10 +3,13 @@ import SwiftData
 
 @main
 struct TrinoApp: App {
+    @State private var settingsStore = SettingsStore()
+
     var body: some Scene {
         WindowGroup {
-            DashboardView()
-                .modelContainer(for: [TrinoTask.self, DailyLog.self, PendingSwap.self])
+            RootView()
+                .modelContainer(for: [TrinoTask.self, DailyLog.self, TaskEntry.self, PendingSwap.self])
+                .environment(settingsStore)
         }
     }
 }

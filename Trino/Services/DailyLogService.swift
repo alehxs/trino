@@ -17,6 +17,7 @@ func ensureTodayLogExists(context: ModelContext) throws {
     if results.isEmpty {
         let newLog = try createTodayLog(context: context)
         context.insert(newLog)
+        newLog.entries.forEach { context.insert($0) }
     }
 }
 
@@ -29,7 +30,7 @@ func createTodayLog(context: ModelContext) throws -> DailyLog {
         
     let activeTasks = try context.fetch(descriptor)
     
-    let entries = activeTasks.map { TaskEntry(task: $0, slotPosition: $0.slotPosition) }
+    let entries = activeTasks.map { TaskEntry(taskName: $0.name, taskId: $0.id, slotPosition: $0.slotPosition) }
     
     return DailyLog(entries: entries)
 }
