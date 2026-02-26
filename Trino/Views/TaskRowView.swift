@@ -6,26 +6,26 @@ struct TaskRowView: View {
     @Bindable var entry: TaskEntry
 
     var body: some View {
-        HStack(spacing: 16) {
-            Button {
-                entry.isCompleted.toggle()
-            } label: {
+        Button {
+            entry.isCompleted.toggle()
+        } label: {
+            HStack(spacing: 16) {
                 Image(systemName: entry.isCompleted ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
                     .foregroundStyle(entry.isCompleted ? settings.theme.accent : .secondary)
                     .animation(.easeInOut(duration: 0.15), value: entry.isCompleted)
+
+                Text(entry.taskName)
+                    .font(.body)
+                    .foregroundStyle(.primary)
+
+                Spacer()
             }
-            .buttonStyle(.plain)
-
-            Text(entry.taskName)
-                .font(.body)
-                .foregroundStyle(entry.isCompleted ? .secondary : .primary)
-                .strikethrough(entry.isCompleted, color: .secondary)
-
-            Spacer()
+            .padding()
+            .background(Color(.secondarySystemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-        .padding()
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .buttonStyle(.plain)
+        .sensoryFeedback(.success, trigger: entry.isCompleted)
     }
 }
