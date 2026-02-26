@@ -29,34 +29,33 @@ struct TasksView: View {
                         }
                     }
                     .padding(.horizontal)
+
+                    Text(productivityStreak == 0 ? "No streak yet" : productivityStreak == 1 ? "1 day streak" : "\(productivityStreak) day streak")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 12)
                 } else {
                     Text("No tasks set up yet")
                         .foregroundStyle(.secondary)
                 }
 
                 Spacer()
-
-                if todayLog != nil {
-                    Text(productivityStreak == 0 ? "No streak yet" : productivityStreak == 1 ? "1 day streak" : "\(productivityStreak) day streak")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .padding(.bottom, 24)
-                }
             }
             .navigationTitle("Tasks")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: 4) {
-                        Button {
-                            showManageTasks = true
-                        } label: {
-                            Image(systemName: "slider.horizontal.3")
-                        }
-                        Button {
-                            showSettings = true
-                        } label: {
-                            Image(systemName: "gearshape")
-                        }
+                    Button {
+                        showManageTasks = true
+                    } label: {
+                        Image(systemName: "arrow.trianglehead.2.clockwise")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
                     }
                 }
             }
