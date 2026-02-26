@@ -28,7 +28,7 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             StreakView()
-                .tabItem { Label("Progress", systemImage: "chart.bar.fill") }
+                .tabItem { Label("Progress", systemImage: "flame.fill") }
                 .tag(0)
 
             TasksView()
