@@ -87,7 +87,7 @@ struct TaskManagementRow: View {
             Spacer()
 
             Button(action: onSwapTap) {
-                Image(systemName: "arrow.triangle.2.circlepath")
+                Image(systemName: "arrow.trianglehead.2.clockwise")
                     .foregroundStyle(settings.theme.accent)
                     .imageScale(.medium)
             }
