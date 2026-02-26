@@ -88,7 +88,7 @@ struct StreakView: View {
 
                 Text(streakContextLabel)
                     .font(.footnote)
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
             }
