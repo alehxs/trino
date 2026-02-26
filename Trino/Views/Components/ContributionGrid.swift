@@ -6,8 +6,6 @@ struct ContributionGrid: View {
     let theme: AppTheme
     let weekStartsOnMonday: Bool
 
-    @State private var tappedDate: Date? = nil
-
     private let cellSize: CGFloat = 38
     private let gap: CGFloat = 6
     private let calendar = Calendar.current
@@ -92,25 +90,6 @@ struct ContributionGrid: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Tapped cell info bar — auto-dismisses, no X button
-            if let date = tappedDate {
-                let count = completionData[date] ?? 0
-                HStack {
-                    Text(date.formatted(date: .abbreviated, time: .omitted))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Text("\(count)/3 completed")
-                        .font(.caption.weight(.medium))
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color(.secondarySystemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .padding(.horizontal)
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-
             // Sticky day-of-week header
             HStack(spacing: gap) {
                 ForEach(Array(dayLabels.enumerated()), id: \.offset) { _, label in
@@ -141,30 +120,10 @@ struct ContributionGrid: View {
                             // Week row
                             HStack(spacing: gap) {
                                 ForEach(week, id: \.self) { date in
-                                    let inYear = calendar.component(.year, from: date) == year
                                     RoundedRectangle(cornerRadius: 4)
                                         .fill(cellColor(for: date))
                                         .frame(width: cellSize, height: cellSize)
-                                        .overlay {
-                                            if calendar.isDateInToday(date) {
-                                                RoundedRectangle(cornerRadius: 4)
-                                                    .strokeBorder(Color.primary, lineWidth: 1.5)
-                                            }
-                                        }
-                                        .onTapGesture {
-                                            guard inYear else { return }
-                                            let normalized = calendar.startOfDay(for: date)
-                                            withAnimation(.easeInOut(duration: 0.15)) {
-                                                if tappedDate == normalized {
-                                                    tappedDate = nil
-                                                } else {
-                                                    tappedDate = normalized
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                                        withAnimation { tappedDate = nil }
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        .scaleEffect(calendar.isDateInToday(date) ? 1.08 : 1.0)
                                 }
                             }
                             .id(index)
