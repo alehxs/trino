@@ -54,21 +54,24 @@ struct SettingsView: View {
                         }
                     }
 
-                    Picker("Week starts on", selection: $settings.weekStartsOnMonday) {
-                        Text("Sunday").tag(false)
-                        Text("Monday").tag(true)
+                    HStack {
+                        Text("Week starts on")
+                        Spacer()
+                        Picker("Week starts on", selection: $settings.weekStartsOnMonday) {
+                            Text("Sunday").tag(false)
+                            Text("Monday").tag(true)
+                        }
+                        .pickerStyle(.segmented)
+                        .fixedSize()
                     }
-                    .pickerStyle(.segmented)
                 }
 
                 Section {
                     DatePicker(
-                        "Daily cut-off",
+                        "Cut-off time",
                         selection: cutoffTimeBinding,
                         displayedComponents: .hourAndMinute
                     )
-                } header: {
-                    Text("Cut-off Time")
                 } footer: {
                     Text("Task swaps scheduled after this time take effect the following day.")
                 }
@@ -103,12 +106,7 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { dismiss() } label: {
-                        Image(systemName: "xmark")
-                            .fontWeight(.semibold)
-                            .foregroundStyle(Color(.secondaryLabel))
-                    }
-                    .glassEffect(in: .circle)
+                    CloseButton { dismiss() }
                 }
             }
             .onChange(of: settings.morningReminderEnabled) { reschedule() }
