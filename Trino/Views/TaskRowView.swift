@@ -21,7 +21,8 @@ struct TaskRowView: View {
 
                 Spacer()
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 20)
             .background(Color(.secondarySystemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
