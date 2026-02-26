@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct StreakView: View {
+    @Environment(SettingsStore.self) private var settings
     @Query(sort: \DailyLog.date, order: .reverse) var dailyLogs: [DailyLog]
 
     var productivityStreak: Int {
@@ -24,11 +25,7 @@ struct StreakView: View {
     }
 
     var flameColor: Color {
-        switch productivityStreak {
-        case 0:    return Color(.secondaryLabel)
-        case 1...6: return .orange
-        default:   return Color(red: 1.0, green: 0.4, blue: 0.0)
-        }
+        productivityStreak == 0 ? Color(.secondaryLabel) : settings.theme.accent
     }
 
     var taskStreaksAreUniform: Bool {
