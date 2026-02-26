@@ -2,14 +2,18 @@ import Foundation
 import Observation
 
 @Observable
+@MainActor
 final class SettingsStore {
 
     // MARK: - Appearance
 
     var theme: AppTheme {
         get { access(keyPath: \.theme); return _theme }
-        set { withMutation(keyPath: \.theme) { _theme = newValue }
-              UserDefaults.standard.set(newValue.rawValue, forKey: Keys.theme) }
+        set {
+            withMutation(keyPath: \.theme) { _theme = newValue }
+            UserDefaults.standard.set(newValue.rawValue, forKey: Keys.theme)
+            AppIconService.apply(theme: newValue)
+        }
     }
     private var _theme: AppTheme
 

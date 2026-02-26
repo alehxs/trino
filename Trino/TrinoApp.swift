@@ -10,6 +10,7 @@ struct TrinoApp: App {
             RootView()
                 .modelContainer(for: [TrinoTask.self, DailyLog.self, TaskEntry.self, PendingSwap.self])
                 .environment(settingsStore)
+                .task { await AppIconService.apply(theme: settingsStore.theme) }
         }
     }
 }
